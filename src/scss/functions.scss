@@ -1,0 +1,6 @@
+
+// To convert from px to rem units
+
+@function rem($pixels){
+    @return #{$pixels}px;
+}

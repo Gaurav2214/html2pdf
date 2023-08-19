@@ -1,0 +1,78 @@
+@import "mixin.scss";
+@import "variable.scss";
+
+%borderbox {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+%wai {
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	text-indent: -9999em;
+	z-index: -1;
+}
+
+%display-flex {
+	display: -ms-flex;
+	display: -webkit-flex;
+	display: flex;
+}
+
+%reset-btn {
+	background: none;
+	border: none;
+	outline: none;
+}
+
+%reset-block {
+	margin: 0;
+	padding: 0;
+}
+
+
+%container-sizeby25 {
+	-webkit-box-flex: 0;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 0 0 25%;
+}
+
+%container-sizeby50 {
+	-webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 0 0 50%;
+}
+
+%container-sizeby75 {
+	-webkit-box-flex: 0;
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 0 0 75%;
+}
+
+%container-sizeby33 {
+	-webkit-box-flex: 0;
+    -ms-flex: 0 0 33.33337%;
+    flex: 0 0 33.33337%;
+    max-width: 0 0 33.33337%;
+}
+
+%container-sizeby100 {
+	-webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 0 0 100%;
+}
+
+%tile-style {
+	background: #fff;	
+	padding: 20px;
+	border-radius: 12px;
+	@include breakpoint($end-small){
+		border-radius: 20px;
+	}
+}
+

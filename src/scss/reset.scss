@@ -1,0 +1,53 @@
+@import "functions.scss";
+@import "variable.scss";
+@import "animations.scss";
+@import "extends.scss";
+@import "globals.scss";
+
+* {
+    @extend %reset-block;
+    word-wrap: break-word;
+    // transition: $common-transition;
+  }
+  
+  html, body {
+    @extend %reset-block;
+    width: 100%;
+    font-size: rem(16);
+    font-family: $font-montserrat;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  
+  header, footer, aside, main, section, fieldset, nav {
+    display: block;
+  }
+  
+  ul, ol {list-style: none;}
+  
+  img, 
+  picture, 
+  source {
+    display: inline-block;
+  }
+  
+  a {text-decoration: none; cursor: pointer;}
+  
+  button,
+  [role="button"] 
+  
+  {cursor: pointer;}
+  
+  
+  ::selection {
+    background: $primary;
+    color: $clr-1
+  }
+
+  #maincontent{
+    position: relative;
+    z-index: 99;
+    @include breakpointmax($end-small){  
+      z-index: 2;
+    }
+  }

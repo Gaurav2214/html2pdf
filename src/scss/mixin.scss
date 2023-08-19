@@ -1,0 +1,163 @@
+@mixin breakpoint($break) {
+	@media screen and (min-width:$break) {
+		@content;
+	}
+}
+
+@mixin breakpointmax($break) {
+	@media screen and (max-width:$break) {
+		@content;
+	}
+}
+
+@mixin placeholder($color) {
+	&::-webkit-input-placeholder {
+	   color: $color;  
+	}
+	&::-moz-placeholder {
+	   color: $color;  
+	}
+	&:-ms-input-placeholder {
+	   color: $color;  
+	} 
+}
+
+@mixin browser-support($property, $value){
+	-ms-#{$property}: $value;
+	-webkit-#{$property}: $value;
+	#{$property}: $value;
+}
+
+@mixin flex-property($property, $value) {
+	@include browser-support($property, $value);
+}
+
+// To cover focus styles similar to hover styles
+@mixin hover {
+    &:hover,
+    &:focus {
+        @content;
+    }
+}
+
+@mixin btn($bg) {
+	padding: rem(10) rem(20);
+	background: $bg;
+	color: #fff;
+	border: 1px solid $bg;
+	border-radius: rem(5);
+	width: auto;
+	font-family: $font-montserrat;
+	font-size: rem(12);
+	font-weight: $semi-bold;
+	line-height: rem(15);
+	text-align: center;
+	transition: all ease 0.5s;
+
+	@include hover {
+		background: #fff;
+		color: $bg;
+	}
+}
+
+@mixin btn-invert($bg) {
+	@include btn($bg);
+	background: #fff;
+	color: $bg;
+
+
+	@include hover {
+		background: $bg;
+		color: #fff;
+	}
+}
+
+@mixin container($w: 1140) {
+    margin-left: auto;
+	margin-right: auto;
+	max-width: #{$w}px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+@mixin define-font($font){
+	@font-face {
+		font-family: #{$font};
+		src: url('#{$font-path}#{$font}.woff2'),
+			 url('#{$font-path}#{$font}.woff')
+	}
+}
+
+@mixin custom-scrollbar {
+	/* width */
+	&::-webkit-scrollbar {
+		width: 4px;
+		}
+		
+	/* Track */
+	&::-webkit-scrollbar-track {
+	background: #f1f1f1; 
+	}
+	
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+	background: #D7D0CE; 
+	}
+	
+	/* Handle on hover */
+	&::-webkit-scrollbar-thumb:hover {
+	background: #555; 
+	}
+}
+
+@mixin set-typography($fs:12, $lh:16) {
+	font-size: rem(#{$fs});
+	line-height: rem(#{$lh});
+}
+
+@mixin set-border-radius($m: 12, $d: 20) {
+	border-radius: rem(#{$m});
+
+	@include breakpoint($end-small){
+		border-radius: rem(#{$d});
+	}
+}
+
+@mixin set-line-clamp($count: 3) {
+	display: -webkit-box;
+	-webkit-line-clamp: #{$count};
+	-webkit-box-orient: vertical;  
+	overflow: hidden;	  
+}
+
+@mixin set-flex-box($jc: space-between, $ai: flex-start, $fd: row){
+	@include flex-property(display, flex);
+    @include flex-property(justify-content, #{$jc});
+    @include flex-property(align-items, #{$ai});
+    @include flex-property(flex-direction, #{$fd});
+}
+
+@mixin insert-box-shadow($value: 0px 4px 20px) {
+	box-shadow: #{$value} rgba(0, 0, 0, 0.1);
+}
+
+@mixin set-children-dib ($va: middle) {
+	> * {
+		display: inline-block;
+		vertical-align: #{$va};
+	}
+}
+
+
+@mixin clearfix {
+	&:after {
+		content: "";
+		clear: both;
+		display: table;
+	}
+}
+
+@mixin heading-border($cl: $primary) {
+	border-left: 4px solid #{$cl};
+	padding-left: rem(15);
+}

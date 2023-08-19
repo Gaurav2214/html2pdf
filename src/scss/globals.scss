@@ -1,0 +1,52 @@
+@import "mixin.scss";
+@import "mixins.derrived.scss";
+
+.input-box {
+    @include input-style-1();
+  }
+
+  .desktop-view {
+    @include breakpointmax($end-small) {
+      display: none !important;
+    }
+  }
+
+  .mobile-view {
+    @include breakpoint($end-small) {
+      display: none !important;
+    }
+  }
+
+  .hide {
+    display: none !important;
+  }
+
+  .btn, .btn-vote {
+    @include btn($clr-6);
+    &.btn-dark{
+      background: $clr-3;
+    }
+  }
+
+  .btn-invert {
+    @include btn-invert($clr-6);
+  }
+
+  .btn-invert-gray {
+    @include btn-invert($clr-9);
+
+    @include hover {
+      background: $primary;
+      color: $clr-1;
+      border-color: $primary;
+    }
+    &:focus{
+      outline: none;
+    }
+  }
+
+  
+
+  .container {
+    @include container;
+  }

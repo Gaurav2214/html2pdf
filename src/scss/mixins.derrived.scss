@@ -1,0 +1,233 @@
+@import "variable.scss";
+@import "functions.scss";
+@import "extends.scss";
+@import "mixin.scss";
+
+// Typography Definitions
+
+@mixin heading-1() {
+    @include set-typography($fs: 40, $lh: 48);
+    font-family: $font-openSans;
+    font-weight: $bold;
+    color: $clr-1;
+  }
+  
+  
+  @mixin heading-2() {
+    @include set-typography($fs: 16, $lh: 24);
+    font-family: $font-openSans;
+    font-weight: $medium;
+    color: $clr-1;
+  }
+  
+  @mixin heading-3() {
+    @include set-typography($fs: 20, $lh: 32);
+    font-family: $font-openSans;
+    font-weight: $medium;
+    color: $clr-23;
+  }
+  
+  @mixin heading-4() {
+    @include set-typography($fs: 42, $lh: 48);
+    font-family: $font-openSans;
+    font-weight: $medium;
+    color: $clr-2;
+  }
+  
+  @mixin heading-5() {
+    @include set-typography($fs: 32, $lh: 47);
+    font-family: $font-openSans;
+    font-weight: $bold;
+    color: $clr-4;
+  } 
+  
+  
+  @mixin desc-1() {
+    @include set-typography($fs: 14, $lh: 21);
+    font-family: $font-montserrat;
+    font-weight: $medium;
+    color: $clr-5;
+  }
+  
+  @mixin desc-2() {
+    @include set-typography($fs: 14, $lh: 17);
+    font-family: $font-montserrat;
+    font-weight: $medium;
+    color: $clr-5;
+  }
+  
+  @mixin desc-3() {
+    @include set-typography($fs: 12, $lh: 18);
+    font-family: $font-montserrat;
+    font-weight: $medium;
+    color: $clr-5;
+  }
+  
+  @mixin desc-4() {
+    @include set-typography($fs: 12, $lh: 15);
+    font-family: $font-montserrat;
+    font-weight: $medium;
+    color: $clr-4;
+  }
+  
+  @mixin desc-5() {
+    @include set-typography($fs: 14, $lh: 21);
+    font-family: $font-openSans;
+    font-weight: $medium;
+    color: $clr-4;
+  }
+  
+  
+  
+  @mixin input-style-1() {
+    background: $clr-1;
+    border: 1px solid $clr-11;
+    padding: rem(16) rem(24);
+    width: 100%;
+    @include set-border-radius($m: 36, $d: 36);
+  
+    @include breakpoint($end-small){
+      padding: rem(12) rem(20);
+    }
+  }
+  
+  @mixin set-more-link(){
+    @include set-typography($fs: 14, $lh: 17);
+    font-family: $font-montserrat;
+    font-weight: $semi-bold;
+    color: $primary;
+    text-decoration: none;
+    background: none;
+    border: none;
+  
+    @include hover {
+      text-decoration: underline;
+    }
+  }
+  
+  @mixin set-dot(){
+    position: relative;
+    padding-left: rem(8);
+  
+    &:before {
+      content: '';
+      width: rem(2);
+      height: rem(2);
+      background: $clr-5;
+      border-radius: 50%;
+      display: inline-block;;
+      position: absolute;
+      left: 0%;
+      top: 45%;
+    }
+  }
+  
+  @mixin set-slash(){
+    position: relative;
+    padding-left: rem(12);
+  
+    &:before {
+      content: '/';   
+      display: inline-block;;
+      position: absolute;
+      left: 0%;
+      top: 6%;
+    }
+  }
+  
+  
+  @mixin set-labels() {
+    @include set-flex-box($jc: flex-start, $ai: center);
+    @include flex-property(flex-wrap, wrap);
+  
+    li {
+      margin-right: rem(8);
+      text-transform: capitalize;
+      
+      @include desc-6();
+      
+      @include breakpoint($end-small){
+        // @include set-typography($fs: 12, $lh: 15);
+        // font-weight: $medium;
+      }
+  
+      &+li {
+       @include set-dot();
+      }    
+    }
+  
+  }
+  
+  @mixin set-breadcrum() {
+    @include set-flex-box($jc: flex-start, $ai: center);
+    @include flex-property(flex-wrap, wrap);
+  
+    li {
+      margin-right: rem(8);
+      text-transform: capitalize;
+      
+      @include desc-32();
+      
+      @include breakpoint($end-small){
+        // @include set-typography($fs: 12, $lh: 20);
+        // font-weight: $medium;      
+      }
+  
+      &+li {
+       @include set-slash();
+      }
+    }
+  
+  }
+  
+  @mixin set-curvy-pic-frame(
+    $m: 62, 
+    $d: 80, 
+    $m-radius: 4px 8px 4px 20px, 
+    $d-radius: 4px 16px 4px 40px){
+  
+        width: rem(#{$m});
+        height: rem(#{$m});
+        border-radius: $m-radius;
+        background: transparent;
+        overflow: hidden;
+  
+        @include breakpoint($end-small){
+          width: rem(#{$d});
+          height: rem(#{$d});
+          border-radius: #{$d-radius};
+        }
+  
+        img {
+          display: block;
+          //object-fit: cover; 
+          width: rem(#{$m});
+          height: rem(#{$m}); 
+          @include breakpoint($end-small){
+            width: rem(#{$d});
+            height: rem(#{$d});
+          }      
+        }
+  }
+  
+  @mixin insert-section-partition($param: 60) {
+    padding-top: rem(#{$param});
+    margin-top: rem(#{$param});
+    border-top: 1px solid $clr-13;
+    // max-width: 992px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @mixin insert-section-partition-bottom-side($param: 60) {
+    &:after{
+      margin: rem(#{$param}) auto;
+      content: "";
+      display: block;
+      border-bottom: 1px solid $clr-13;
+      max-width: 992px;    
+      @include breakpointmax($end-small){  
+        margin: rem(45) auto;
+      }
+    }
+  }
