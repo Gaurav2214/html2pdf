@@ -29,7 +29,7 @@ HTMLToPDF.login = (() => {
 
 HTMLToPDF.model = (() =>  {
 
-	var open_pop = (custom_function, add_class, head) => {	
+	const open_pop = (custom_function, add_class, head) => {	
 	
 		var modelBoxes = document.querySelectorAll('.model-box');
 		var model_id = modelBoxes.length === 0 ? 1 : modelBoxes.length + 1;
@@ -43,7 +43,7 @@ HTMLToPDF.model = (() =>  {
 		var append_str = '';
 		var close_txt = '';		
 		
-		close_txt = close === 'N' ? '' : '<a class="close" style="z-index:9999">&#10005;</a>';
+		close_txt = close === 'N' ? '' : '<a onclick="HTMLToPDF.model.close_pop();" class="close" style="z-index:9999">&#10005;</a>';
 		append_str = '<div id="' + obj_id + '" class="model-container ' + xtra_cls + '" style="display:none;">' + close_txt + '<div class="model-wrapper"><div class="model-content clearfix" id="model_content_' + model_id + '"><span class="pre_loader" id="pre_loader_' + model_id + '"><span class="loader">&nbsp;</span>Loading...</span></div></div></div>';
 		
 		document.body.insertAdjacentHTML('beforeend', append_str);
@@ -65,22 +65,26 @@ HTMLToPDF.model = (() =>  {
 	};
 	
 
-	var close_pop = function (obj, skip_close_btn) {
+	const close_pop = (obj) => {
 		if (obj) {
-			var is_close = parseInt($('#model_' + obj).length);
-			if (is_close || skip_close_btn === true) {
-				var hideAll = "#model_" + obj + ",#l2_overlay_bx_" + obj + ",#wrapper_" + obj;
-				if ($("#_model_id_" + obj).hasClass('fadeInUp')) {
-					$("#model_" + obj).removeClass('fadeInUp').addClass('fadeInDown');
-					$(hideAll).remove();
+			var popupElement = document.getElementById('model_' + obj);
+			if (popupElement) {
+				var overlayElement = document.getElementById('l2_overlay_bx_' + obj);
+				var wrapperElement = document.getElementById('wrapper_' + obj);
+				
+				if (document.getElementById('model_' + obj).classList.contains('fadeInUp')) {
+					popupElement.classList.remove('fadeInUp');
+					popupElement.classList.add('fadeInDown');
+					if (overlayElement) overlayElement.remove();
+					if (wrapperElement) wrapperElement.remove();
 				} else {
-					$(hideAll).remove();
-				}				
+					if (overlayElement) overlayElement.remove();
+					if (wrapperElement) wrapperElement.remove();
+				}
 			}
-			localStorage.removeItem('yoloFlag');
 		}
-		$('html').removeClass("sidebarPopup");
-	}
+	};
+	
 
 	return {
 		open_pop  : open_pop,
