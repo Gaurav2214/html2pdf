@@ -34,7 +34,8 @@
   font-weight: 600;
   line-height: 15px;
   text-align: center;
-  transition: all ease 0.5s; }
+  transition: all ease 0.5s;
+  cursor: pointer; }
   .btn:hover, .btn:focus, .btn-vote:hover, .btn-vote:focus {
     background: #fff;
     color: #4447e1; }
@@ -54,6 +55,7 @@
   line-height: 15px;
   text-align: center;
   transition: all ease 0.5s;
+  cursor: pointer;
   background: #fff;
   color: #4447e1; }
   .btn-invert:hover, .btn-invert:focus {
@@ -76,6 +78,7 @@
   line-height: 15px;
   text-align: center;
   transition: all ease 0.5s;
+  cursor: pointer;
   background: #fff;
   color: #736E6E; }
   .btn-invert-gray:hover, .btn-invert-gray:focus {

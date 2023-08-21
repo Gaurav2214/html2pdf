@@ -7,6 +7,8 @@ function createHeaderElement() {
                             <div class="main-header__inner--logo">
                                 <img src="/src/images/logo.png" width="200" height="50" alt="Header Logo" />
                             </div>
+                            <div class="mobile-view main-header__inner--hamberger">
+                            </div>
                             <div class="main-header__inner--nav">
                                 <ul>
                                     <li><a>Live Demo</a></li>
@@ -14,11 +16,11 @@ function createHeaderElement() {
                                     <li><a>Pricing</a></li>
                                     <li><a>Documentation</a></li>
                                 </ul>
-                            </div>
-                            <div class="main-header__inner--login">
-                                <button class="btn">Login</button>
-                                <div class="loggedin-user hide"></div>
-                            </div>
+                                <div class="main-header__inner--login">
+                                    <button class="btn init-login">Login</button>
+                                    <div class="loggedin-user hide"></div>
+                                </div>
+                            </div>                            
                         </div>
                     </div>`;
 

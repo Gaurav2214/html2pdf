@@ -53,6 +53,7 @@
 	line-height: rem(15);
 	text-align: center;
 	transition: all ease 0.5s;
+	cursor: pointer;
 
 	@include hover {
 		background: #fff;

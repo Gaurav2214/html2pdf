@@ -14,10 +14,10 @@
   
   
   @mixin heading-2() {
-    @include set-typography($fs: 16, $lh: 24);
+    @include set-typography($fs: 18, $lh: 24);
     font-family: $font-openSans;
-    font-weight: $medium;
-    color: $clr-1;
+    font-weight: $bold;
+    color: $clr-4;
   }
   
   @mixin heading-3() {
