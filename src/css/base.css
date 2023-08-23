@@ -476,13 +476,16 @@ footer .main-footer__bottom {
       border: none;
       border-bottom: 1px solid #e0e0e0;
       font-size: 14px;
-      color: #292929;
+      color: #262626;
       display: block;
       transition: all 1s ease;
       box-sizing: border-box;
       line-height: 16px; }
       .model-box .model-container .input_txt_box:focus, .model-box .model-container .input_txt_box:hover {
         outline: 0; }
+      .model-box .model-container .input_txt_box.error {
+        border-bottom: 1px solid #ED1C24;
+        color: #262626; }
     .model-box .model-container .oauth_submit_status {
       margin-top: 25px;
       position: relative; }
@@ -537,3 +540,7 @@ footer .main-footer__bottom {
         font-weight: 500;
         color: #595959;
         text-decoration: underline; }
+    .model-box .model-container .login-form .error {
+      color: #ED1C24;
+      clear: both;
+      font-size: 13px; }

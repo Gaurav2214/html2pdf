@@ -3,11 +3,15 @@ var HTMLToPDF = HTMLToPDF || {};
 HTMLToPDF.globalVar = HTMLToPDF.globalVar || {
 	errorValueInFlow: '',
 };
+var apiUrl = 'https://api.gopdf.pro/v1/';
 
 HTMLToPDF.messageLog = {
-    1: 'Please provide your email ID.',
-	2: 'Please provide a valid email ID.',
+    1: 'Please provide your email ID',
+	2: 'Please provide a valid email ID',
 	3: 'Please provide your name',
+	4: 'Name must not contain any special symbols/numbers',
+	5: 'Please enter your password',
+	6: 'Password length must be 6-20',
 };
 
 HTMLToPDF.common = (() => {
@@ -24,7 +28,7 @@ HTMLToPDF.common = (() => {
 	};
 	var isOperatable = function (obj) {
 		if (typeof obj == 'object' &&
-			!this.isNull(obj)) {
+			!isNull(obj)) {
 	
 			return Object.keys(obj).length == 0 ? false : true;
 		} else {
@@ -80,7 +84,7 @@ HTMLToPDF.common = (() => {
 
 		switch (key) {
 			case "b2boauth_name":
-				handleBlankNameVal(29, 30);
+				handleBlankNameVal(1, 2);
 		}
 		return error;
 	}
@@ -95,27 +99,12 @@ HTMLToPDF.common = (() => {
 			case "b2boauth_verify_registration_password":
 			case "b2boauth_registration_password":
 				if (password == "") {
-					error = HTMLToPDF.messageLog[26];
-				} else if (password.length < 6) {
-					error = HTMLToPDF.messageLog[27];
-				} else if (password.length > 32) {
-					error = HTMLToPDF.messageLog[28];
-				}
-				break;
-			case "b2boauth_new_password1":
-				if (password == "") {
-					error = HTMLToPDF.messageLog[48];
-				} else if (password.length < 6) {
-					error = HTMLToPDF.messageLog[27];
-				} else if (password.length > 32) {
-					error = HTMLToPDF.messageLog[28];
-				}
-				break;
-			case "b2boauth_new_password2":
-				var newpass = encodeHTML($('#b2boauth_new_password1').val());
-				if (password != newpass) {
-					error = HTMLToPDF.messageLog[37];
-				}
+					error = HTMLToPDF.messageLog[5];
+				} else if (password.length < 7) {
+					error = HTMLToPDF.messageLog[6];
+				} else if (password.length > 20) {
+					error = HTMLToPDF.messageLog[6];
+				}			
 		}
 		return error;
 	}
@@ -194,26 +183,24 @@ HTMLToPDF.common = (() => {
 		}
 	}
 
-	var hitAjaxApi = function (requestSet, ajaxSuccess, ajaxError) {
+	var hitAjaxApi = async (requestSet, ajaxSuccess, ajaxError) => {
 		if (isOperatable(requestSet)) {
 			requestSet = requestSet || {};
 			requestSet.data = requestSet.data || {};
-            requestSet.data.portal = ET_PORTAL;
-			$.ajax({
+			axios({
+				method: requestSet.type || 'post',
 				url: requestSet.url,
-				type: requestSet.type || 'POST',
 				data: requestSet.data,
-                xhrFields: { withCredentials: true },
-				crossDomain: true,
 				success: function (data) {
 					ajaxSuccess(data);
 				},
 				error: function (data, XMLHttpRequest, textStatus, errorThrown) {
 					ajaxError(data);
 				}
-			});
+			});			
 		}
-	}
+	};
+	
 	return {
 		isNull 		 		 : isNull,
 		isBlank		 		 : isBlank,
@@ -339,6 +326,7 @@ HTMLToPDF.login = (() => {
 		`;
 		$('#model_content_1').html(layer_html);
 		loadloginfunctions();
+		clearFormData();
 	}
 
 	var loadloginfunctions = (lid) => {
@@ -348,12 +336,40 @@ HTMLToPDF.login = (() => {
 			$('.main_info, .ostore-pwd').remove();
 			$('.reg_id_display').text('');
 		});
+
 		$("body").on("click", "#registration-form .cancel", function () {
 			$("#login-form").show('slow');
 			$("#registration-form").hide();
 			$('.main_info').remove();			
 		});
+
+		$(document).on('keyup', '.input_sec .input_txt_box', function () {
+			$(this).removeClass('error');
+			$(this).siblings('.error').html('');
+			$(this).val() ? $(this).addClass('valid') : $(this).removeClass('valid');
+		});		
 	}
+
+	var clearFormData = () =>{
+		$(".lgn_pop input").each(function () {
+			if ($(this).attr('type') != 'button' && $(this).attr('type') != 'checkbox') {
+				$(this).val('');
+				$(this).removeClass('error');
+				var idd = $(this).attr('id');
+				$('#' + idd + '_err').text('');
+			}
+
+			$(this).removeClass('valid');
+		});
+		$(".lgn_pop .show-pwd").each(function () {
+			if ($(this).text() == 'Hide') {
+				$(this).text('Show');
+				$(this).siblings('#b2boauth_frgt_pswd_password').attr('type', 'password');
+				$(this).siblings('#b2boauth_log_pswd').attr('type', 'password');
+				$(this).siblings('#b2boauth_registration_password').attr('type', 'password');
+			}
+		});
+	};
 
 	var loginUser = () => {	}
 	var userRegistration = () => {
@@ -367,7 +383,34 @@ HTMLToPDF.login = (() => {
 				if (valError) { return false; }
 			}
 		});
+
+		if (valError) {
+			return false;
+
+		} else {
+			var paramObject = {
+				url: apiUrl + 'auth/register',
+				type: 'POST',
+				data: {
+					'email': reg_email,
+					'name': reg_name,
+					'password': reg_pwd,
+				}
+			}
+
+			var ajaxSuccessCall = (response) => {
+				$('.showloader').hide();
+				console.log(response);
+			}
+
+			var ajaxErrorCall = (response) => {
+				$('.showloader').hide();
+			}
+
+			HTMLToPDF.common.hitAjaxApi(paramObject, ajaxSuccessCall, ajaxErrorCall);
+		}
 	}
+
 	var displayUserInfo = (data) =>{}
 
 	return {

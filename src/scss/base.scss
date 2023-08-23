@@ -306,13 +306,17 @@ footer{
             border: none;
             border-bottom: rem(1) solid #e0e0e0;
             font-size: rem(14);
-            color: #292929;
+            color: $clr-4;
             display: block;
             transition: all 1s ease;
             box-sizing: border-box;
             line-height: rem(16);
             &:focus, &:hover{
                 outline: 0;
+            }
+            &.error{
+                border-bottom: rem(1) solid $primary;
+                color: $clr-4;
             }
 
         }
@@ -378,6 +382,11 @@ footer{
                     color: #595959;
                     text-decoration: underline;
                 }
+            }
+            .error{
+                color: $primary;
+                clear: both;
+                font-size: 13px;
             }
         }
     }
