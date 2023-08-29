@@ -84,7 +84,7 @@ HTMLToPDF.common = (() => {
 
 		switch (key) {
 			case "b2boauth_name":
-				handleBlankNameVal(1, 2);
+				handleBlankNameVal(3, 4);
 		}
 		return error;
 	}
@@ -122,7 +122,7 @@ HTMLToPDF.common = (() => {
 		var error = '';
 		email = email.replace(/^\s+|\s+$/gm,'');
 		if (email == "") {
-			error = HTMLToPDF.messageLog[31];
+			error = HTMLToPDF.messageLog[1];
 		}
 		else if (!isValidEmail(email)) {
 			error = HTMLToPDF.messageLog[2];
@@ -156,9 +156,9 @@ HTMLToPDF.common = (() => {
 		HTMLToPDF.globalVar.errorValueInFlow = '';
 		var valParam = {
 			'b2boauth_name': validateName,
-			'b2boauth_reg_pwd': validatePassword,
-			'b2boauth_registration_email': validateEmail,
 			'b2boauth_log_email': validateEmail,
+			'b2boauth_reg_pwd': validatePassword,
+			'b2boauth_registration_email': validateEmail,			
 			'b2boauth_registration_password': validatePassword,
 			'b2boauth_log_pswd': validatePassword,
 		};	
@@ -188,15 +188,15 @@ HTMLToPDF.common = (() => {
 			requestSet = requestSet || {};
 			requestSet.data = requestSet.data || {};
 			axios({
-				method: requestSet.type || 'post',
+				method: requestSet.type || 'POST',
 				url: requestSet.url,
 				data: requestSet.data,
-				success: function (data) {
-					ajaxSuccess(data);
-				},
-				error: function (data, XMLHttpRequest, textStatus, errorThrown) {
-					ajaxError(data);
-				}
+			})
+			.then(function (response) {
+				ajaxSuccess(response);
+			})
+			.catch(function (error) {
+				ajaxError(error);
 			});			
 		}
 	};
@@ -245,12 +245,9 @@ HTMLToPDF.login = (() => {
 							<div class="create-section input_sec ">
 								<input required="" data-id="" placeholder="" name="" type="text" id="b2boauth_log_email" class="input_txt_box" value="" /> 
 																
-								<label for="b2boauth_log_email">
-									Email ID
-								</label>
+								<label for="b2boauth_log_email"> Email ID </label>
 
-								<p id="b2boauth_log_email_err" class="error">
-								</p>
+								<p id="b2boauth_log_email_err" class="error"></p>
 							</div>
 							<div class="create-section input_sec ">									
 								<i class="lg_sprite oauth-eye-slash show-pwd" aria-hidden="true" data-testid="show-password">
@@ -266,7 +263,7 @@ HTMLToPDF.login = (() => {
 							<a id="forgot_pswd_link" class="forgot">Forgot your password?</a>
 							<p id="b2boauth_log_main_err" class="error error_info"></p>
 							<div class="create-section marg-bottom0 clearfix">
-								<input type="button" id="log_submit" class="btn submit-button2" onclick="EtB2b.login.loginUser()" value="Log in" disabled="disabled"> 
+								<input type="button" id="log_submit" class="btn submit-button2" onclick="HTMLToPDF.login.loginUser()" value="Log in"> 
 							</div>
 						</div>
 						<div class="log_popup_bottom oauth-bottom-login model-bottom">
@@ -371,11 +368,51 @@ HTMLToPDF.login = (() => {
 		});
 	};
 
-	var loginUser = () => {	}
+	var loginUser = () => {	
+		let reg_email = $('#b2boauth_log_email').val();
+		let reg_pwd = $('#b2boauth_log_pswd').val();
+		$('.error').html('');
+
+		$(".login-model input").each(function () {
+			if ($(this).attr('type') != 'button' && $(this).attr('type') != 'checkbox') {
+				HTMLToPDF.common.removeRequiredFields($(this));
+				if (valError) { return false; }
+			}
+		});
+
+		if (valError) {
+			return false;
+
+		} else {
+			var paramObject = {
+				url: apiUrl + 'auth/login',
+				type: 'POST',
+				data: {
+					'email': reg_email,
+					'password': reg_pwd,
+				}
+			}
+			var ajaxSuccessCall = (response) => {
+				displayUserInfo(response.data);
+				HTMLToPDF.model.close_pop(1);
+			}
+
+			var ajaxErrorCall = (response) => {
+				$('.showloader').hide();
+				if(response.response){
+					$('#b2boauth_log_main_err').html(response.response.data.message);
+				}
+			}
+
+			HTMLToPDF.common.hitAjaxApi(paramObject, ajaxSuccessCall, ajaxErrorCall);
+		}
+	}
+
 	var userRegistration = () => {
 		var reg_name = $('#b2boauth_name').val();
 		var reg_email = $('#b2boauth_registration_email').val();
 		var reg_pwd = $('#b2boauth_registration_password').val();
+		$('.error').html('');
 
 		$(".registration-model input").each(function () {
 			if ($(this).attr('type') != 'button' && $(this).attr('type') != 'checkbox') {
@@ -401,17 +438,23 @@ HTMLToPDF.login = (() => {
 			var ajaxSuccessCall = (response) => {
 				$('.showloader').hide();
 				console.log(response);
+				HTMLToPDF.model.close_pop(1);
 			}
 
 			var ajaxErrorCall = (response) => {
 				$('.showloader').hide();
+				if(response.response){
+					$('#reg_main_err').html(response.response.data.message);
+				}
 			}
 
 			HTMLToPDF.common.hitAjaxApi(paramObject, ajaxSuccessCall, ajaxErrorCall);
 		}
 	}
 
-	var displayUserInfo = (data) =>{}
+	var displayUserInfo = (data) =>{
+		
+	}
 
 	return {
 		showLoginLayer 	 : showLoginLayer,

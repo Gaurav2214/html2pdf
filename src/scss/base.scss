@@ -389,6 +389,10 @@ footer{
                 font-size: 13px;
             }
         }
+        #reg_main_err, #b2boauth_log_main_err{
+            position: relative;
+            top: rem(-10);
+        }
     }
 }
 
