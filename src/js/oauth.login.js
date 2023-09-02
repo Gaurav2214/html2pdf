@@ -2,8 +2,10 @@ var HTMLToPDF = HTMLToPDF || {};
 
 HTMLToPDF.globalVar = HTMLToPDF.globalVar || {
 	errorValueInFlow: '',
+	is_Loggedin: 0,
 };
 var apiUrl = 'https://api.gopdf.pro/v1/';
+var oauthUserData = '';
 
 HTMLToPDF.messageLog = {
     1: 'Please provide your email ID',
@@ -223,7 +225,9 @@ HTMLToPDF.system = {
 	changePassword: function () {},
 	editProfile: function () {},
 	logout: function() {
-		
+		HTMLToPDF.common.deleteLocalStorage('oauthUserData');
+		EtB2b.globalVar.is_loggedin = 0;
+		window.location.reload(true);
 	}
 };
 
@@ -326,7 +330,7 @@ HTMLToPDF.login = (() => {
 		clearFormData();
 	}
 
-	var loadloginfunctions = (lid) => {
+	var loadloginfunctions = () => {
 		$("body").on("click", ".signup", function () {
 			$("#login-form, #forgot_psswrd").hide();
 			$("#registration-form").show('slow');
@@ -393,7 +397,11 @@ HTMLToPDF.login = (() => {
 				}
 			}
 			var ajaxSuccessCall = (response) => {
-				displayUserInfo(response.data);
+				var response = response.data;
+				displayUserInfo(response);
+				HTMLToPDF.common.setLocalStorage('oauthUserData', response, 1);
+				window.loginCallback ? loginCallback(response) : false;
+				HTMLToPDF.globalVar.is_loggedin = 1;
 				HTMLToPDF.model.close_pop(1);
 			}
 
@@ -437,8 +445,13 @@ HTMLToPDF.login = (() => {
 
 			var ajaxSuccessCall = (response) => {
 				$('.showloader').hide();
-				console.log(response);
-				HTMLToPDF.model.close_pop(1);
+				$("#login-form").show('slow');
+				$("#registration-form").hide();
+				$('.main_info').remove();	
+				$('.login-model').prepend('<div class="info_bg oauth-log-info">You have successfully registered with us. Please login with the registered email ID and password.</div>');
+				setTimeout(function(){
+					$('.info_bg').hide();
+				}, 4000);
 			}
 
 			var ajaxErrorCall = (response) => {
@@ -452,8 +465,49 @@ HTMLToPDF.login = (() => {
 		}
 	}
 
+	var checkLoginStatus = () => {
+		var userData = HTMLToPDF.common.getLocalStorage("oauthUserData");
+		displayUserInfo(userData);
+	}
+
 	var displayUserInfo = (data) =>{
-		
+		if(data){
+			let username = data.user.name;
+			$('.loggedin-user').removeClass('hide');
+			$('.init-login').addClass('hide');
+			let userData = `
+				<div class="show_user">
+					<img src="https://www.ilovepdf.com/img/avatar/default30.png" alt="User Image">
+					<span>${username}</span>
+					<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5">
+						<polyline fill="#bbb" fill-rule="evenodd" points="160 30 165 35 170 30 160 30" transform="translate(-160 -30)"></polyline>
+					</svg>
+				</div>
+				<div class="header-user-nav">
+					<div class="hvr_bx">
+						<ul>
+							<li>
+								<a onclick="HTMLToPDF.system.editProfile()" tabindex="0" role="button" href="javascript:void(0);">
+									<i class="fa fa-pencil"></i>Account
+								</a>
+							</li>							
+							<li class="change-password">
+								<a href="javascript:void(0);" tabindex="0" role="button" onclick="HTMLToPDF.system.changePassword()">
+									<i class="fa fa-key"></i>Change Password
+								</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" tabindex="0" role="button" onclick="HTMLToPDF.system.logout()">
+									<i class="fa fa-power-off"></i>Logout
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			`;
+			$('.loggedin-user').append(userData);
+			$('.main-header__inner--logo').css('width','600px');
+		}
 	}
 
 	return {
@@ -461,6 +515,7 @@ HTMLToPDF.login = (() => {
 		loginUser 	   	 : loginUser,
 		userRegistration : userRegistration,
 		displayUserInfo  : displayUserInfo,
+		checkLoginStatus : checkLoginStatus,
 	}
 })();
 
@@ -526,3 +581,16 @@ HTMLToPDF.model = (() =>  {
 		close_pop : close_pop,
 	}
 })();
+
+document.addEventListener('readystatechange', event => {
+
+    // When HTML/DOM elements are ready:
+    if (event.target.readyState === "interactive") {
+            HTMLToPDF.login.checkLoginStatus();
+    }
+
+    if (event.target.readyState === "complete") {
+
+    }
+
+});

@@ -238,6 +238,19 @@ header {
           left: 0;
           justify-content: flex-start;
           align-items: flex-start; } }
+  .main-header__inner--login .loggedin-user .show_user {
+    cursor: pointer; }
+    .main-header__inner--login .loggedin-user .show_user img {
+      vertical-align: middle; }
+    .main-header__inner--login .loggedin-user .show_user span {
+      text-transform: capitalize;
+      font-size: 14px;
+      line-height: 21px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      color: #5e638d; }
+  .main-header__inner--login .loggedin-user .header-user-nav {
+    display: none; }
 
 .main-content {
   margin-top: 90px;
@@ -547,3 +560,19 @@ footer .main-footer__bottom {
     .model-box .model-container #reg_main_err, .model-box .model-container #b2boauth_log_main_err {
       position: relative;
       top: -10px; }
+    .model-box .model-container .info_bg {
+      background: #f8d2d2;
+      border: none;
+      padding: 8px 16px;
+      font-family: Montserrat,sans-serif;
+      border-radius: 6px;
+      margin: 0 auto 40px;
+      font-size: 14px;
+      line-height: 21px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      color: #5e638d; }
+    .model-box .model-container .oauth-log-info {
+      position: absolute;
+      max-width: 360px;
+      top: 22px; }
