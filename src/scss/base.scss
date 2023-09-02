@@ -32,7 +32,7 @@ header{
         &--nav{     
             @include set-flex-box();
             align-items: center;       
-            ul{
+            & > ul{
                 list-style: none;
                 li{
                     @include desc-1();
@@ -82,18 +82,80 @@ header{
         }
         &--login{
             .loggedin-user{
+                position: relative;
                 .show_user{
                     cursor: pointer;
+                    @include set-flex-box();
+                    align-items: center;
                     img{
                         vertical-align: middle;
+                        border: 1px solid #ccc;
+                        border-radius: 50%;                        
                     }
                     span{
                         text-transform: capitalize;
                         @include desc-1();
+                        margin: 0 rem(9);
+                        @include set-line-clamp(1);
+                        max-width: rem(70);
+                    }
+                    svg{
+                        vertical-align: middle;
                     }
                 }
                 .header-user-nav{
-                    display: none;                    
+                    display: none;   
+                    position: absolute;
+                    top: -10000px;
+                    background-color: #fff;
+                    width: rem(190);
+                    box-shadow: 0 4px 20px rgba(0,0,0,.1);
+                    padding: rem(20);
+                    padding-right: 0;
+                    right: 0;
+                    z-index: 9;
+                    border-radius: rem(20); 
+                    ul{
+                        li{
+                            a{
+                                @include desc-4();
+                                display: block;
+                                padding: 10px;
+                                &:hover{
+                                    color: $clr-6;
+                                }
+                            }
+                            i.fa{
+                                width: rem(20);
+                                height: rem(18);
+                                display: inline-block;
+                                vertical-align: middle;
+                                margin-right: rem(8);
+                            }
+                            .fa-power-off{
+                                background: url(/src/images/logout-icon.svg) 0 0 no-repeat;
+                            }
+                            .fa-key{
+                                background: url(/src/images/create-pwd-icon.svg) 0 0 no-repeat;
+                            }
+                            .fa-pencil{
+                                background: url(/src/images/edit-icon.svg) 0 0 no-repeat;
+                            }
+                        }
+                    }                       
+                }
+                &:hover{
+                    .header-user-nav{
+                        display: block;    
+                        position: absolute;  
+                        top: rem(45);                                     
+                    }
+                }
+                &::before{
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    padding: 28px 0;
                 }
             }
         }
@@ -424,6 +486,12 @@ footer{
             max-width: rem(360);
             top: rem(22);
         }
+    }
+}
+
+.dashboard-panel{
+    &__inner{
+
     }
 }
 

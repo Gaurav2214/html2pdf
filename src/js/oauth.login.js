@@ -226,7 +226,7 @@ HTMLToPDF.system = {
 	editProfile: function () {},
 	logout: function() {
 		HTMLToPDF.common.deleteLocalStorage('oauthUserData');
-		EtB2b.globalVar.is_loggedin = 0;
+		HTMLToPDF.globalVar.is_loggedin = 0;
 		window.location.reload(true);
 	}
 };
@@ -477,7 +477,7 @@ HTMLToPDF.login = (() => {
 			$('.init-login').addClass('hide');
 			let userData = `
 				<div class="show_user">
-					<img src="https://www.ilovepdf.com/img/avatar/default30.png" alt="User Image">
+					<img width="30" height="30" src="../src/images/default-user.png" alt="User Image">
 					<span>${username}</span>
 					<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5">
 						<polyline fill="#bbb" fill-rule="evenodd" points="160 30 165 35 170 30 160 30" transform="translate(-160 -30)"></polyline>
@@ -506,7 +506,7 @@ HTMLToPDF.login = (() => {
 				</div>
 			`;
 			$('.loggedin-user').append(userData);
-			$('.main-header__inner--logo').css('width','600px');
+			$('.main-header__inner--logo').css('width','585px');			
 		}
 	}
 

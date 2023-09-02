@@ -199,9 +199,9 @@ header {
     -webkit-flex-direction: row;
     flex-direction: row;
     align-items: center; }
-    .main-header__inner--nav ul {
+    .main-header__inner--nav > ul {
       list-style: none; }
-      .main-header__inner--nav ul li {
+      .main-header__inner--nav > ul li {
         font-size: 14px;
         line-height: 21px;
         font-family: "Montserrat", sans-serif;
@@ -209,16 +209,16 @@ header {
         color: #5e638d;
         display: inline-block; }
         @media screen and (min-width: 1000px) {
-          .main-header__inner--nav ul li:not(:first-child) {
+          .main-header__inner--nav > ul li:not(:first-child) {
             margin-left: 25px; } }
-        .main-header__inner--nav ul li a:hover {
+        .main-header__inner--nav > ul li a:hover {
           color: #4447e1; }
         @media screen and (max-width: 1000px) {
-          .main-header__inner--nav ul li {
+          .main-header__inner--nav > ul li {
             display: block;
             margin-bottom: 20px; } }
       @media screen and (min-width: 1000px) {
-        .main-header__inner--nav ul {
+        .main-header__inner--nav > ul {
           border-right: 1px solid #E6E6E6;
           padding-right: 20px;
           margin-right: 20px; } }
@@ -238,19 +238,85 @@ header {
           left: 0;
           justify-content: flex-start;
           align-items: flex-start; } }
-  .main-header__inner--login .loggedin-user .show_user {
-    cursor: pointer; }
-    .main-header__inner--login .loggedin-user .show_user img {
-      vertical-align: middle; }
-    .main-header__inner--login .loggedin-user .show_user span {
-      text-transform: capitalize;
-      font-size: 14px;
-      line-height: 21px;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 500;
-      color: #5e638d; }
-  .main-header__inner--login .loggedin-user .header-user-nav {
-    display: none; }
+  .main-header__inner--login .loggedin-user {
+    position: relative; }
+    .main-header__inner--login .loggedin-user .show_user {
+      cursor: pointer;
+      -ms-display: flex;
+      -webkit-display: flex;
+      display: flex;
+      -ms-justify-content: space-between;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -ms-align-items: flex-start;
+      -webkit-align-items: flex-start;
+      align-items: flex-start;
+      -ms-flex-direction: row;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      align-items: center; }
+      .main-header__inner--login .loggedin-user .show_user img {
+        vertical-align: middle;
+        border: 1px solid #ccc;
+        border-radius: 50%; }
+      .main-header__inner--login .loggedin-user .show_user span {
+        text-transform: capitalize;
+        font-size: 14px;
+        line-height: 21px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        color: #5e638d;
+        margin: 0 9px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        max-width: 70px; }
+      .main-header__inner--login .loggedin-user .show_user svg {
+        vertical-align: middle; }
+    .main-header__inner--login .loggedin-user .header-user-nav {
+      display: none;
+      position: absolute;
+      top: -10000px;
+      background-color: #fff;
+      width: 190px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      padding-right: 0;
+      right: 0;
+      z-index: 9;
+      border-radius: 20px; }
+      .main-header__inner--login .loggedin-user .header-user-nav ul li a {
+        font-size: 12px;
+        line-height: 15px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        color: #262626;
+        display: block;
+        padding: 10px; }
+        .main-header__inner--login .loggedin-user .header-user-nav ul li a:hover {
+          color: #4447e1; }
+      .main-header__inner--login .loggedin-user .header-user-nav ul li i.fa {
+        width: 20px;
+        height: 18px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 8px; }
+      .main-header__inner--login .loggedin-user .header-user-nav ul li .fa-power-off {
+        background: url(/src/images/logout-icon.svg) 0 0 no-repeat; }
+      .main-header__inner--login .loggedin-user .header-user-nav ul li .fa-key {
+        background: url(/src/images/create-pwd-icon.svg) 0 0 no-repeat; }
+      .main-header__inner--login .loggedin-user .header-user-nav ul li .fa-pencil {
+        background: url(/src/images/edit-icon.svg) 0 0 no-repeat; }
+    .main-header__inner--login .loggedin-user:hover .header-user-nav {
+      display: block;
+      position: absolute;
+      top: 45px; }
+    .main-header__inner--login .loggedin-user::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      padding: 28px 0; }
 
 .main-content {
   margin-top: 90px;

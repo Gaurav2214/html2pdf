@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/src/images/favicon.png" rel="icon" />
+        <title>HTML to PDF - Dashboard</title>
+        <link rel="stylesheet" href='/src/css/base.css?mod=2' />
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+        <script src="/src/components/Footer.js?mod=2" type="text/javascript" defer></script>
+        <script src="/src/components/HeroSection.js?mod=2" type="text/javascript" defer></script>
+    </head>
 <body>
-    
+    <header-component id="header-component">
+        <header>
+            <div class="main-haeder container">
+                <div class="main-header__inner">
+                    <div class="main-header__inner--logo">
+                        <img src="/src/images/logo.png" width="200" height="50" alt="Header Logo" />
+                    </div>
+                    <div class="mobile-view main-header__inner--hamberger">
+                    </div>
+                    <div class="main-header__inner--nav">
+                        <ul>
+                            <li><a>Live Demo</a></li>
+                            <li><a>Features</a></li>
+                            <li><a>Pricing</a></li>
+                            <li><a>Documentation</a></li>
+                        </ul>
+                        <div class="main-header__inner--login">
+                            <button class="btn init-login">Login</button>
+                            <div class="loggedin-user hide"></div>
+                        </div>
+                    </div>                            
+                </div>
+            </div>
+        </header>
+    </header-component>
+    <section class="dashboard-panel">
+
+    </section>
 </body>
 </html>
