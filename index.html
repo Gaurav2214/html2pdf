@@ -42,6 +42,21 @@
 
     <main class="main-content">
         <hero-component id="hero_component"></hero-component>
+        <section class="demo_panel">
+            <div class="demo_panel__inner container">
+                <h2>Try our system and see the results</h2>
+                <!-- <form method="post" target="_blank" action="https://api.gopdf.pro/v1/pdf/request"></form> -->
+                <div class="demo_panel__inner--convert_area">
+                    <input type="url" placeholder="Enter website url you want to convert" value="" />
+                    <button type="button" class="btn" onclick="HTMLToPDF.login.convertPDF($(this));">Convert to PDF</button>
+                </div>
+            </div>
+        </section>
+        <section class="features_panel">
+            <div class="features_panel__inner container">
+                <h2>Features</h2>
+            </div>
+        </section>
         <section class="top-footer-panel">
             <div class="top-footer-panel__inner container">
                 <h2>Experience hassle-free PDF generation with ease</h2>

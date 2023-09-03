@@ -6,6 +6,7 @@ HTMLToPDF.globalVar = HTMLToPDF.globalVar || {
 };
 var apiUrl = 'https://api.gopdf.pro/v1/';
 var oauthUserData = '';
+var link;
 
 HTMLToPDF.messageLog = {
     1: 'Please provide your email ID',
@@ -469,6 +470,37 @@ HTMLToPDF.login = (() => {
 		var userData = HTMLToPDF.common.getLocalStorage("oauthUserData");
 		displayUserInfo(userData);
 	}
+	
+	var convertPDF = (e) => {
+		let strVal = $(e).siblings().val();
+		if(!strVal) {
+			return false;
+		}
+
+		let paramObject = {
+			url: apiUrl + 'pdf/request',
+			type: 'POST',
+			data: {
+				'content': strVal,
+				'api_key': '86rkeowthsnnb8tmn102cphpf9fria',
+			}
+		}
+
+		const ajaxSuccessCall = (response) => {
+			let anchor = `
+				<a id="my-link" class="hide" target="_blank" href="${response.data.output}">sdfsdfdsfsd</a>
+			`;
+			$(e).after(anchor);
+			link = document.getElementById('my-link');			
+			link.click();
+		}
+
+		const ajaxErrorCall = (response) => {
+			console.log(response);
+		}
+
+		HTMLToPDF.common.hitAjaxApi(paramObject, ajaxSuccessCall, ajaxErrorCall);
+	}
 
 	var displayUserInfo = (data) =>{
 		if(data){
@@ -516,6 +548,7 @@ HTMLToPDF.login = (() => {
 		userRegistration : userRegistration,
 		displayUserInfo  : displayUserInfo,
 		checkLoginStatus : checkLoginStatus,
+		convertPDF		 : convertPDF,
 	}
 })();
 

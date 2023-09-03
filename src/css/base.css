@@ -286,6 +286,9 @@ header {
       right: 0;
       z-index: 9;
       border-radius: 20px; }
+      @media screen and (max-width: 1000px) {
+        .main-header__inner--login .loggedin-user .header-user-nav {
+          right: unset; } }
       .main-header__inner--login .loggedin-user .header-user-nav ul li a {
         font-size: 12px;
         line-height: 15px;
@@ -642,3 +645,61 @@ footer .main-footer__bottom {
       position: absolute;
       max-width: 360px;
       top: 22px; }
+
+.demo_panel__inner {
+  background: #4447e1;
+  padding: 55px 0;
+  border-radius: 6px;
+  text-align: center; }
+  @media screen and (max-width: 1000px) {
+    .demo_panel__inner {
+      padding: 55px 20px;
+      border-radius: 0; } }
+  .demo_panel__inner h2 {
+    font-size: 40px;
+    line-height: 48px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    color: #FFF;
+    width: 425px;
+    margin: 0 auto;
+    letter-spacing: 2px; }
+    @media screen and (max-width: 1000px) {
+      .demo_panel__inner h2 {
+        width: unset;
+        font-size: 30px;
+        line-height: 40px; } }
+  .demo_panel__inner--convert_area {
+    margin: 12px auto;
+    position: relative;
+    max-width: 560px; }
+    .demo_panel__inner--convert_area input {
+      background: #FFF;
+      padding: 15px 30px;
+      border-radius: 6px;
+      border: none;
+      width: 100%;
+      max-width: 530px;
+      outline: none;
+      font-size: 14px;
+      line-height: 21px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      color: #5e638d; }
+      .demo_panel__inner--convert_area input:focus, .demo_panel__inner--convert_area input:hover, .demo_panel__inner--convert_area input:active {
+        border: none; }
+      @media screen and (max-width: 1000px) {
+        .demo_panel__inner--convert_area input {
+          width: 274px; } }
+    .demo_panel__inner--convert_area button {
+      position: absolute;
+      right: 0;
+      top: 7px; }
+      @media screen and (max-width: 1000px) {
+        .demo_panel__inner--convert_area button {
+          top: 65px;
+          background: #FFF;
+          color: #5e638d; } }
+
+.features_panel__inner {
+  padding: 20px 0; }
