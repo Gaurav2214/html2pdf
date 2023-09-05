@@ -404,6 +404,7 @@ HTMLToPDF.login = (() => {
 				window.loginCallback ? loginCallback(response) : false;
 				HTMLToPDF.globalVar.is_loggedin = 1;
 				HTMLToPDF.model.close_pop(1);
+				window.location.href = '/src/components/dashboard.html';
 			}
 
 			var ajaxErrorCall = (response) => {
@@ -476,6 +477,12 @@ HTMLToPDF.login = (() => {
 		if(!strVal) {
 			return false;
 		}
+		// let anchor = `
+		// 		<a id="my-link" class="hide" target="_blank" href="/">sdfsdfdsfsd</a>
+		// 	`;
+		// $(e).after(anchor);
+		link = document.getElementById('my-link');	
+		var demoForm = document.getElementById('demo-form');	
 
 		let paramObject = {
 			url: apiUrl + 'pdf/request',
@@ -487,12 +494,10 @@ HTMLToPDF.login = (() => {
 		}
 
 		const ajaxSuccessCall = (response) => {
-			let anchor = `
-				<a id="my-link" class="hide" target="_blank" href="${response.data.output}">sdfsdfdsfsd</a>
-			`;
-			$(e).after(anchor);
-			link = document.getElementById('my-link');			
+			link.setAttribute('href', response.data.output);		
 			link.click();
+			// demoForm.setAttribute('action', response.data.output);
+			// demoForm.submit();
 		}
 
 		const ajaxErrorCall = (response) => {
@@ -509,7 +514,7 @@ HTMLToPDF.login = (() => {
 			$('.init-login').addClass('hide');
 			let userData = `
 				<div class="show_user">
-					<img width="30" height="30" src="../src/images/default-user.png" alt="User Image">
+					<img width="30" height="30" src="/src/images/default-user.png" alt="User Image">
 					<span>${username}</span>
 					<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5">
 						<polyline fill="#bbb" fill-rule="evenodd" points="160 30 165 35 170 30 160 30" transform="translate(-160 -30)"></polyline>
